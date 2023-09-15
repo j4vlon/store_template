@@ -2,20 +2,35 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Attribute;
+use App\Models\Value;
+use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use JsonSerializable;
 
 class StockResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
+     * @param  Request  $request
+     * @return array|Arrayable|JsonSerializable
      */
-    public function toArray($request)
+    public function toArray($request): array|JsonSerializable|Arrayable
     {
-        return [
-            'quantity' => $this->quantity
+        $result = [
+            'quantity' => $this->quantity,
         ];
+
+        $attributes = json_decode($this->attributes);
+        foreach ($attributes as $item) {
+            $attribute = Attribute::find($item->attribute_id);
+            $value = Value::find($item->value_id);
+
+            $result[$attribute->title] = $value->getTranslations('title');
+        }
+
+        return $result;
     }
 }

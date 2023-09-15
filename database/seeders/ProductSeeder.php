@@ -19,7 +19,37 @@ class ProductSeeder extends Seeder
 
         foreach ($products as $product) {
             $product->stocks()->create([
-                'quantity' => 1,
+                'quantity' => rand(1, 10),
+                'attributes' => json_encode(
+                    [
+                        [
+                            'attribute_id' => 3,
+                            'value_id' => rand(1,3)
+                        ],
+                        [
+                            'attribute_id' => 2,
+                            'value_id' => rand(4,5)
+                        ]
+                    ]
+                )
+            ]);
+            $product->stocks()->create([
+                'quantity' => rand(1, 10),
+                'attributes' => json_encode(
+                    [
+                        [
+                            'attribute_id' => 3,
+                            'value_id' => rand(1,3)
+                        ],
+                        [
+                            'attribute_id' => 2,
+                            'value_id' => rand(4,5)
+                        ]
+                    ]
+                )
+            ]);
+            $product->stocks()->create([
+                'quantity' => rand(1, 10),
                 'attributes' => json_encode(
                     [
                         [
