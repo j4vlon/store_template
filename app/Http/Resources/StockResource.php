@@ -20,11 +20,15 @@ class StockResource extends JsonResource
     public function toArray($request): array|JsonSerializable|Arrayable
     {
         $result = [
+            'stock_id' => $this->id,
             'quantity' => $this->quantity,
         ];
 
         $attributes = json_decode($this->attributes);
         foreach ($attributes as $item) {
+            /*
+             * TODO cache it
+             */
             $attribute = Attribute::find($item->attribute_id);
             $value = Value::find($item->value_id);
 
