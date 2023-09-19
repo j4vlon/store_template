@@ -15,6 +15,14 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreignId('delivery_method_id')->constrained();
+            $table->foreignId('payment_type_id')->constrained();
+            $table->text('comment')->nullable();
+            $table->unsignedBigInteger('sum');
+            $table->text('address')->nullable();
+            $table->json('products');
             $table->timestamps();
         });
     }

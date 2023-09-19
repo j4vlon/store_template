@@ -28,7 +28,8 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             AttributeSeeder::class,
             ProductSeeder::class,
-            ValueSeeder::class
+            ValueSeeder::class,
+            DeliveryMethodSeeder::class
         ]);
     }
 }
