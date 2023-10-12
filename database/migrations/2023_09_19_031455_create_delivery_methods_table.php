@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('delivery_methods', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->unsignedBigInteger('estimated_time');
-            $table->unsignedBigInteger('sum');
+            $table->text('estimated_time');
+            $table->unsignedBigInteger('price');
             $table->timestamps();
         });
     }

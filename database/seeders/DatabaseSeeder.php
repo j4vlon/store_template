@@ -29,7 +29,8 @@ class DatabaseSeeder extends Seeder
             AttributeSeeder::class,
             ProductSeeder::class,
             ValueSeeder::class,
-            DeliveryMethodSeeder::class
+            DeliveryMethodSeeder::class,
+            PaymentTypeSeeder::class
         ]);
     }
 }

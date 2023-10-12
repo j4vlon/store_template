@@ -16,19 +16,19 @@ class DeliveryMethodSeeder extends Seeder
     public function run(): void
     {
         DeliveryMethod::create([
-            'name' => [
-                'uz' => 'Tekin',
+            'title' => [
+                'uz' => 'Bepul',
                 'ru' => 'Бесплатно'
             ],
             'estimated_time' => [
                 'uz' => '5 kun',
                 'ru' => '5 дней'
             ],
-            'sum' => 0
+            'price' => 0
         ]);
 
         DeliveryMethod::create([
-            'name' => [
+            'title' => [
                 'uz' => 'Standard',
                 'ru' => 'Стандарт'
             ],
@@ -36,11 +36,11 @@ class DeliveryMethodSeeder extends Seeder
                 'uz' => '3 kun',
                 'ru' => '3 дня'
             ],
-            'sum' => 40000
+            'price' => 40000
         ]);
 
         DeliveryMethod::create([
-            'name' => [
+            'title' => [
                 'uz' => 'Tezkor yetkazib berish',
                 'ru' => 'Быстрая доставка'
             ],
@@ -48,7 +48,7 @@ class DeliveryMethodSeeder extends Seeder
                 'uz' => '1 kun',
                 'ru' => '1 день'
             ],
-            'sum' => 80000
+            'price' => 80000
         ]);
     }
 }

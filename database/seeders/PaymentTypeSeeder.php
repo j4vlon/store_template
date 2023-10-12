@@ -11,37 +11,37 @@ class PaymentTypeSeeder extends Seeder
     public function run(): void
     {
         PaymentType::create([
-            'name' => [
+            'title' => [
                 'uz' => 'Naqd',
                 'ru' => 'Наличными'
             ]
         ]);
 
         PaymentType::create([
-            'name' => [
+            'title' => [
                 'uz' => 'Karta orqali',
                 'ru' => 'Оплата картой'
             ]
         ]);
 
         PaymentType::create([
-            'name' => [
-                'uz' => 'Naqd',
-                'ru' => 'Наличными'
+            'title' => [
+                'uz' => 'Click',
+                'ru' => 'Click'
             ]
         ]);
 
         PaymentType::create([
-            'name' => [
-                'uz' => 'Naqd',
-                'ru' => 'Наличными'
+            'title' => [
+                'uz' => 'Payme',
+                'ru' => 'Payme'
             ]
         ]);
 
         PaymentType::create([
-            'name' => [
-                'uz' => 'Naqd',
-                'ru' => 'Наличными'
+            'title' => [
+                'uz' => 'Uzum',
+                'ru' => 'Uzum'
             ]
         ]);
     }
