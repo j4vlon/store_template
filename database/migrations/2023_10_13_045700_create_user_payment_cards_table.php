@@ -13,15 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('products', function (Blueprint $table) {
+        Schema::create('user_payment_cards', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('category_id');
-            $table->foreign('category_id')->references('id')->on('categories');
-            $table->string('title');
-            $table->integer('price');
-            $table->text('description');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -32,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('products');
+        Schema::dropIfExists('user_payment_cards');
     }
 };

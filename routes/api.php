@@ -3,10 +3,13 @@
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\CategoryProductController;
+use App\Http\Controllers\Api\DeliveryMethodController;
 use App\Http\Controllers\Api\FavoriteController;
 use App\Http\Controllers\Api\OrderController;
+use App\Http\Controllers\Api\PaymentTypeController;
 use App\Http\Controllers\Api\ProductController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Api\UserAddressController;
+use App\Http\Controllers\Api\UserPaymentCardController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,5 +37,9 @@ Route::apiResources([
     'products' => ProductController::class,
     'categories.products' => CategoryProductController::class,
     'favorites' => FavoriteController::class,
-    'orders' => OrderController::class
+    'orders' => OrderController::class,
+    'delivery-methods' => DeliveryMethodController::class,
+    'payment-types' => PaymentTypeController::class,
+    'user-addresses' => UserAddressController::class,
+    'user-payment-cards' => UserPaymentCardController::class,
 ]);

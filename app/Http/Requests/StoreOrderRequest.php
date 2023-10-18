@@ -11,7 +11,7 @@ class StoreOrderRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -21,16 +21,19 @@ class StoreOrderRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'user_id' => 'required|int',
             'delivery_method_id' => 'required|int',
             'payment_type_id' => 'required|int',
-            'comment' => 'required|string',
-            'price' => 'required|int',
-            'address' => 'required|string',
-            'products' => 'required|string',
+            'comment' => 'nullable|string|max:500',
+            'price' => 'required|numeric',
+            'user_address_id' => 'required|int',
+            'products' => 'required|array',
+            'products.*.product_id' => 'required|int',
+            'products.*.stock_id' => 'nullable|int',
+            'products.*.quantity' => 'required|int',
         ];
     }
 }
