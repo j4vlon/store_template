@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
 use App\Http\Resources\OrderResource;
+use App\Http\Resources\ProductResource;
 use App\Models\Order;
+use App\Models\Product;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 
@@ -40,9 +42,24 @@ class OrderController extends Controller
      */
     public function store(StoreOrderRequest $request): JsonResponse
     {
+        $sum = 0;
         $data = $request->validated();
         $data['products'] = json_encode($data['products']);
+        foreach ($request['products'] as $product)
+        {
+            $productStock = Product::with('stocks')->findOrFail($product['product_id']);
 
+            if (
+                $product->stocks()->find($product['stock_id']) &&
+                $product->stocks()->find($product['stock_id'])->quantity >= $product['quantity']
+            )
+            {
+                $productWithStock =$productStock->withStock($product['stock_id']);
+                $productResource = new ProductResource($productWithStock);
+                $sum += $productResource['price'];
+                $product[] = $productResource->resolve();
+            }
+        }
         try {
             $order = Order::create($data);
             return response()->json(['message' => 'Запись успешно сохранена', 'order' => $order], 201);
