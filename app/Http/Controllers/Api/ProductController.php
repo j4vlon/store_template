@@ -53,7 +53,7 @@ class ProductController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param Product $product
-     * @return Response
+     * @return void
      */
     public function edit(Product $product)
     {
@@ -63,9 +63,9 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateProductRequest  $request
+     * @param UpdateProductRequest $request
      * @param Product $product
-     * @return Response
+     * @return void
      */
     public function update(UpdateProductRequest $request, Product $product)
     {
@@ -76,7 +76,7 @@ class ProductController extends Controller
      * Remove the specified resource from storage.
      *
      * @param Product $product
-     * @return Response
+     * @return void
      */
     public function destroy(Product $product)
     {

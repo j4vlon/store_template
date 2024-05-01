@@ -15,7 +15,7 @@ class UserSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         $admin = User::create([
            'first_name' => 'Admin',

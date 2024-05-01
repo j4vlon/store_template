@@ -24,7 +24,7 @@ class OrderController extends Controller
      *
      * @return Response
      */
-    public function index()
+    public function index(): Response
     {
         return auth()->user()->orders->map(function ($order) {
             $order->products = json_decode($order->products);
@@ -42,31 +42,60 @@ class OrderController extends Controller
      */
     public function store(StoreOrderRequest $request): JsonResponse
     {
+//        try {
+        // Инициализация переменной для хранения суммы заказа
         $sum = 0;
+        $products = [];
+        // Валидация данных запроса и сохранение их в переменной $data
         $data = $request->validated();
+
+        // Преобразование массива продуктов в формат JSON и сохранение в переменной $data
         $data['products'] = json_encode($data['products']);
+
+        // Перебор всех продуктов из запроса
         foreach ($request['products'] as $product)
         {
+            // Получение объекта продукта с связанными данными о складах
             $productStock = Product::with('stocks')->findOrFail($product['product_id']);
 
+            // Проверка наличия запрошенного количества продукта на складе
             if (
-                $product->stocks()->find($product['stock_id']) &&
-                $product->stocks()->find($product['stock_id'])->quantity >= $product['quantity']
+                $productStock->stocks()->find($product['stock_id']) &&
+                $productStock->stocks()->find($product['stock_id'])->quantity >= $product['quantity']
             )
             {
-                $productWithStock =$productStock->withStock($product['stock_id']);
+                // Получение объекта продукта с данными о конкретном складе
+                $productWithStock = $productStock->withStock($product['stock_id']);
+
+                // Создание ресурса для продукта с данными о складе
                 $productResource = new ProductResource($productWithStock);
+
+                // Добавление цены продукта к общей сумме заказа
                 $sum += $productResource['price'];
-                $product[] = $productResource->resolve();
+
+                // Разрешение ресурса и добавление данных продукта в массив $data['products']
+                $products[] = $productResource->resolve();
             }
+
         }
-        try {
-            $order = Order::create($data);
-            return response()->json(['message' => 'Запись успешно сохранена', 'order' => $order], 201);
-        } catch (\Exception $e) {
-            return response()->json(['message' => 'Произошла ошибка при сохранении заказа', 'error' => $e->getMessage()], 500);
-        }
+
+            // Создание заказа на основе валидированных данных
+           auth()->user()->orders()->create([
+                "comment" => $request->comment,
+                "delivery_method_id" => $request->delivery_method_id,
+                "payment_type_id" => $request->payment_type_id,
+                "price" => $sum,
+                "user_address_id" => $request->user_address_id,
+                "products" => $products,
+            ]);
+            // Возврат успешного ответа с данными о заказе
+            return response()->json(['message' => 'Заказ успешно сохранен', 'order' => 'создан'], 201);
+//        } catch (\Exception $e) {
+            // Возврат ответа с сообщением об ошибке в случае исключения при сохранении заказа
+//            return response()->json(['message' => 'Произошла ошибка при сохранении заказа', 'error' => $e->getMessage()], 500);
+//        }
     }
+
 
 
 

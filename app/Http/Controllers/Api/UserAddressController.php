@@ -29,9 +29,9 @@ class UserAddressController extends Controller
      * Store a newly created resource in storage.
      *
      * @param StoreUserAddressRequest $request
-     * @return Response
+     * @return string
      */
-    public function store(StoreUserAddressRequest $request)
+    public function store(StoreUserAddressRequest $request): string
     {
         auth()->user()->addresses()->create($request->validated());
         return 'ok';
@@ -40,8 +40,8 @@ class UserAddressController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\UserAddress  $userAddress
-     * @return Response
+     * @param UserAddress $userAddress
+     * @return void
      */
     public function show(UserAddress $userAddress)
     {
@@ -51,7 +51,7 @@ class UserAddressController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\UserAddress  $userAddress
+     * @param UserAddress $userAddress
      * @return Response
      */
     public function edit(UserAddress $userAddress)
@@ -63,7 +63,7 @@ class UserAddressController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \App\Http\Requests\UpdateUserAddressRequest  $request
-     * @param  \App\Models\UserAddress  $userAddress
+     * @param UserAddress $userAddress
      * @return Response
      */
     public function update(UpdateUserAddressRequest $request, UserAddress $userAddress)
@@ -74,7 +74,7 @@ class UserAddressController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\UserAddress  $userAddress
+     * @param UserAddress $userAddress
      * @return Response
      */
     public function destroy(UserAddress $userAddress)
